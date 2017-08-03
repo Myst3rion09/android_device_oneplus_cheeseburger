@@ -66,7 +66,7 @@ TARGET_USES_UEFI := true
 TARGET_USES_64_BIT_BINDER := true
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=2048
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=2048 androidboot.usbcontroller=a800000.dwc3
 BOARD_KERNEL_CMDLINE += androidboot.configfs=true
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
@@ -242,15 +242,16 @@ TARGET_USERIMAGES_USE_EXT4 := true
 # Power
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 
-# Recovery
-TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/recovery.fstab
-#TARGET_RECOVERY_UI_LIB := librecovery_ui_msm
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_SUPPRESS_EMMC_WIPE := true
 
 # Releasetools
 TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_cheeseburger
 TARGET_RELEASETOOLS_EXTENSIONS := $(PLATFORM_PATH)
+
+# Recovery
+TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/recovery.fstab
+#TARGET_RECOVERY_UI_LIB := librecovery_ui_msm
 
 # RIL
 PROTOBUF_SUPPORTED := true
