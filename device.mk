@@ -196,6 +196,10 @@ PRODUCT_PACKAGES += \
     libregistermsext \
     mediametrics \
 
+# Netutils
+PRODUCT_PACKAGES += \
+    netutils-wrapper-1.0
+
 # NFC
 PRODUCT_PACKAGES += \
     com.android.nfc_extras \
