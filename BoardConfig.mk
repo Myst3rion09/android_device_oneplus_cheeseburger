@@ -244,6 +244,14 @@ BOARD_USES_QCNE := true
 # Timeservice
 BOARD_USES_QC_TIME_SERVICES := true
 
+# Releasetools
+TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_cheeseburger
+TARGET_RELEASETOOLS_EXTENSIONS := $(BOARD_PATH)
+
+# RIL
+TARGET_RIL_VARIANT := caf
+PROTOBUF_SUPPORTED := true
+
 # selinux
 include device/qcom/sepolicy/sepolicy.mk
 
