@@ -164,6 +164,10 @@ PRODUCT_PACKAGES += \
     com.quicinc.cne \
     services-ext
 
+# DeviceParts
+PRODUCT_PACKAGES += \
+    DeviceParts
+
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8998 \

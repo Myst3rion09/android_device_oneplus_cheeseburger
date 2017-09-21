@@ -1,6 +1,16 @@
 allow system_server proc_touchpanel:dir { search };
 allow system_server proc_touchpanel:file { rw_file_perms };
 
+allow system_server shell_prop:property_service { set };
+
 allow system_server sysfs_fpc_home:file { rw_file_perms };
+
+allow system_server sysfs_fpc_proximity:file { rw_file_perms };
+
+allow system_server sysfs_graphics:file { rw_file_perms };
+allow system_server sysfs_graphics:dir { search };
+
+allow system_server sysfs_vibrator:file { rw_file_perms };
+allow system_server sysfs_vibrator:dir { search };
 
 allow system_server proc_stat:file { r_file_perms };
