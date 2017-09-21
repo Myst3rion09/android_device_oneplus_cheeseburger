@@ -80,6 +80,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
+# Charger Images
+PRODUCT_PACKAGES += \
+    omni_charger_res_images
+ 
 # HWUI from Stock
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.texture_cache_size=96 \
@@ -122,7 +126,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/aanc_tuning_mixer.txt:system/etc/aanc_tuning_mixer.txt \
-    $(LOCAL_PATH)/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     $(LOCAL_PATH)/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml \
     $(LOCAL_PATH)/audio/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml \
     $(LOCAL_PATH)/audio/listen_platform_info.xml:system/etc/listen_platform_info.xml \
@@ -177,7 +180,6 @@ PRODUCT_PACKAGES += \
 # Fingerprint sensor
 PRODUCT_PACKAGES += \
     fingerprintd \
-    OneplusPocketMode
 
 # For android_filesystem_config.h
 PRODUCT_PACKAGES += \
@@ -327,6 +329,3 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini
-
-# Inherit from oppo-common
-$(call inherit-product, device/oppo/common/common.mk)

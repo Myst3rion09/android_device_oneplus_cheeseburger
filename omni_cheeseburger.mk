@@ -16,15 +16,25 @@
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
+# Get the prebuilt list of APNs
+$(call inherit-product, vendor/omni/config/gsm.mk)
+
+# Inherit from the common Open Source product configuration
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+
+# Bootanimation Size
+TARGET_BOOTANIMATION_SIZE := 1080x608
+
+# Inherit from our custom product configuration
+$(call inherit-product, vendor/omni/config/common.mk)
 
 # Inherit from cheeseburger device
 $(call inherit-product, device/oneplus/cheeseburger/device.mk)
 
-# Inherit some common CM stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
+PRODUCT_PROPERTY_OVERRIDES += ro.hardware.nfc_nci=nqx.default
 
-PRODUCT_NAME := lineage_cheeseburger
+PRODUCT_NAME := omni_cheeseburger
 PRODUCT_DEVICE := cheeseburger
 PRODUCT_MANUFACTURER := OnePlus
 PRODUCT_BRAND := OnePlus
