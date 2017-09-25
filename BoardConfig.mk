@@ -22,9 +22,6 @@
 # definition file).
 #
 
-# Inherit from oppo-common
--include device/oppo/common/BoardConfigCommon.mk
-
 PLATFORM_PATH := device/oneplus/cheeseburger
 
 TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
@@ -78,9 +75,6 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_SOURCE := kernel/oneplus/msm8998
 TARGET_KERNEL_CONFIG := lineage_cheeseburger_defconfig
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
-
-# QCOM hardware
-BOARD_USES_QCOM_HARDWARE := true
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-uart"
@@ -162,9 +156,6 @@ TARGET_SPECIFIC_CAMERA_PARAMETER_LIBRARY := libcamera_parameters_ext
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
-# CM Hardware
-BOARD_HARDWARE_CLASS += $(PLATFORM_PATH)/cmhw
-
 # CNE and DPM
 BOARD_USES_QCNE := true
 
@@ -183,7 +174,7 @@ TARGET_USES_COLOR_METADATA := true
 TARGET_CONTINUOUS_SPLASH_ENABLED := true
 USE_OPENGL_RENDERER := true
 
-MAX_EGL_CACHE_KEY_SIZE := 12*1024
+MAX_EGL__KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 
 MAX_VIRTUAL_DISPLAY_DIMENSION := 4096
@@ -194,13 +185,8 @@ VSYNC_EVENT_PHASE_OFFSET_NS := 2000000
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 6000000
 
 # Enable dexpreopt to speed boot time
-ifeq ($(HOST_OS),linux)
-  ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
-    ifeq ($(WITH_DEXPREOPT),)
-      WITH_DEXPREOPT := true
-    endif
-  endif
-endif
+WITH_DEXPREOPT := true
+WITH_DEXPREOPT_PIC := false
 
 # GPS
 TARGET_NO_RPC := true
@@ -230,12 +216,8 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 32212254720
 BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_USERIMAGES_USE_EXT4 := true
 
-# Power
-TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
-
 # Recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/recovery.fstab
-TARGET_RECOVERY_UI_LIB := librecovery_ui_msm
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 # Releasetools
@@ -247,7 +229,6 @@ TARGET_RIL_VARIANT := caf
 PROTOBUF_SUPPORTED := true
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
 
 # Sensors
