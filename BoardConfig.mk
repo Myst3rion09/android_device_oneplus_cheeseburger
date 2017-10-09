@@ -22,9 +22,6 @@
 # definition file).
 #
 
-# Inherit from oppo-common
--include device/oppo/common/BoardConfigCommon.mk
-
 PLATFORM_PATH := device/oneplus/cheeseburger
 
 TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
@@ -34,11 +31,8 @@ BOARD_VENDOR := oneplus
 # Assertions
 TARGET_OTA_ASSERT_DEVICE := OnePlus5,cheeseburger,oneplus5,op5,A5000
 
-# we are too big to fit in
-PRODUCT_SKIP_FINGERPRINT_FROM_FILE := true
-
 # Use Snapdragon LLVM, if available
-TARGET_USE_SDCLANG := true
+USE_CLANG_PLATFORM_BUILD := true
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := msm8998
@@ -53,19 +47,20 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT := kryo
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := cortex-a53
+TARGET_2ND_CPU_VARIANT := krait
 
 ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
 
 TARGET_USES_UEFI := true
 TARGET_USES_64_BIT_BINDER := true
+TARGET_COMPILE_WITH_MSM_KERNEL := true
 
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=2048
@@ -79,7 +74,7 @@ TARGET_KERNEL_APPEND_DTB := true
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_SOURCE := kernel/oneplus/msm8998
-TARGET_KERNEL_CONFIG := lineage_cheeseburger_defconfig
+TARGET_KERNEL_CONFIG := omni_cheeseburger_defconfig
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 
 # REMOVE ASAP
@@ -87,6 +82,7 @@ BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
+TARGET_USES_QCOM_BSP := true
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-uart"
@@ -148,6 +144,7 @@ USE_LEGACY_AUDIO_MEASUREMENT := false
 DOLBY_ENABLE := false
 
 TARGET_USES_QCOM_MM_AUDIO := true
+TARGET_QCOM_AUDIO_VARIANT := caf-msm8998
 MM_AUDIO_ENABLED_SAFX := true
 MM_AUDIO_ENABLED_FTM := true
 DTS_CODEC_M_ := false
@@ -164,9 +161,11 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
 QCOM_BT_USE_BTNV := true
 QCOM_BT_USE_SMD_TTY := true
+TARGET_QCOM_BLUETOOTH_VARIANT := caf-msm8998
 
 # Camera
 USE_CAMERA_STUB := true
+TARGET_USES_QTI_CAMERA2CLIENT := true
 TARGET_USES_MEDIA_EXTENSIONS := true
 BOARD_USES_SNAPDRAGONCAMERA_VERSION := 2
 
@@ -174,19 +173,18 @@ BOARD_USES_SNAPDRAGONCAMERA_VERSION := 2
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
-# CM Hardware
-BOARD_HARDWARE_CLASS += $(PLATFORM_PATH)/cmhw
-
 # CNE and DPM
 BOARD_USES_QCNE := true
 
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
+TARGET_CRYPTFS_HW_PATH := $(PLATFORM_PATH)/cryptfs_hw
 
 # Display
 BOARD_USES_ADRENO := true
 
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
+TARGET_QCOM_DISPLAY_VARIANT := caf-msm8998
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
 TARGET_USES_NEW_ION_API :=true
@@ -206,13 +204,7 @@ VSYNC_EVENT_PHASE_OFFSET_NS := 2000000
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 6000000
 
 # Enable dexpreopt to speed boot time
-ifeq ($(HOST_OS),linux)
-  ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
-    ifeq ($(WITH_DEXPREOPT),)
-      WITH_DEXPREOPT := true
-    endif
-  endif
-endif
+WITH_DEXPREOPT := true
 
 # Filesystem
 TARGET_FS_CONFIG_GEN += $(PLATFORM_PATH)/config.fs
@@ -235,6 +227,9 @@ TARGET_PROVIDES_KEYMASTER := true
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
+# Media
+TARGET_QCOM_MEDIA_VARIANT := caf-msm8998
+
 # NFC
 BOARD_NFC_CHIPSET := pn548
 BOARD_NFC_HAL_SUFFIX := $(TARGET_BOARD_PLATFORM)
@@ -250,20 +245,37 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # Power
+TARGET_PROVIDES_POWERHAL := true
+TARGET_USES_INTERACTION_BOOST := true
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
+
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/recovery.fstab
-#TARGET_RECOVERY_UI_LIB := librecovery_ui_msm
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_SUPPRESS_EMMC_WIPE := true
+BOARD_HAS_NO_SELECT_BUTTON := true
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+BOARD_HAS_NO_REAL_SDCARD := true
+RECOVERY_SDCARD_ON_DATA := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_EXCLUDE_SUPERSU := true
+TW_EXTRA_LANGUAGES := true
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_NTFS_3G := true
+TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_MAX_BRIGHTNESS := 255
+TW_NO_USB_STORAGE := true
+TW_SCREEN_BLANK_ON_BOOT := true
+TW_THEME := portrait_hdpi
 
 # Releasetools
 TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_cheeseburger
 TARGET_RELEASETOOLS_EXTENSIONS := $(PLATFORM_PATH)
 
 # RIL
-TARGET_RIL_VARIANT := caf
 PROTOBUF_SUPPORTED := true
 
 # SELinux

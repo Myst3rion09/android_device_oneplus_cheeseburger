@@ -15,4 +15,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/gzosp.mk
+    $(LOCAL_DIR)/omni_cheeseburger.mk
