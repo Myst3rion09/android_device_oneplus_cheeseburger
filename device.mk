@@ -19,8 +19,8 @@
 # device-specific aspects (drivers) with a device-agnostic
 # product configuration (apps).
 #
-$(call inherit-product, device/oneplus/oneplus5/hidl.mk)
-$(call inherit-product, vendor/oneplus/oneplus5/device-vendor.mk)
+$(call inherit-product, device/oneplus/cheeseburger/hidl.mk)
+$(call inherit-product, vendor/oneplus/cheeseburger/device-vendor.mk)
 $(call inherit-product, vendor/omni/config/phone-xxhdpi-4096-dalvik-heap.mk)
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -83,8 +83,8 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilt
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,device/oneplus/oneplus5/prebuilt/system,system) \
-    $(call find-copy-subdir-files,*,device/oneplus/oneplus5/prebuilt/root,root)
+    $(call find-copy-subdir-files,*,device/oneplus/cheeseburger/prebuilt/system,system) \
+    $(call find-copy-subdir-files,*,device/oneplus/cheeseburger/prebuilt/root,root)
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
@@ -295,7 +295,7 @@ PRODUCT_COPY_FILES += \
 # have been removed, TARGET_FS_CONFIG_GEN should be made unconditional.
 DEVICE_CONFIG_DIR := $(dir $(firstword $(subst ]],, $(word 2, $(subst [[, ,$(_node_import_context))))))
 ifeq ($(wildcard $(LOCAL_PATH)/android_filesystem_config.h),)
-  TARGET_FS_CONFIG_GEN := device/oneplus/oneplus5/config.fs
+  TARGET_FS_CONFIG_GEN := device/oneplus/cheeseburger/config.fs
 else
   $(warning **********)
   $(warning TODO: Need to replace legacy $(DEVICE_CONFIG_DIR)android_filesystem_config.h with config.fs)
