@@ -446,6 +446,9 @@
     <!-- doze always on
     <bool name="config_enableDozeAlwaysOn">true</bool>-->
 
+    <!-- Whether device has dash charging support -->
+    <bool name="config_hasDashCharger">true</bool>
+
     <!-- Default value for proximity check on screen wake
          NOTE ! - Enable for devices that have a fast response
          proximity sensor (ideally < 300ms)
