@@ -111,6 +111,7 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
+    SnapdragonCamera2 \
     libcamera_shim
 
 # Connectivity Engine support (CNE)
