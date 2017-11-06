@@ -107,7 +107,8 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-    libbt-vendor
+    libbt-vendor \
+    libbthost_if
 
 # Camera
 PRODUCT_PACKAGES += \
